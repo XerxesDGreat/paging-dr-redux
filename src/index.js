@@ -144,11 +144,10 @@ const getPaginator = (apiCall, options = {}) => {
 
         return function(dispatch) {
             dispatch(actionCreators.requestPage(pageToFetch, queryParams));
-            const a = {
+            return apiCall({
                 ...queryParams,
                 [mergedOptions.pageKey]: pageToFetch
-            };
-            return _queryApi(a).then(
+            }).then(
                 response => dispatch(actionCreators.receivePage(pageToFetch, queryParams, response)),
                 error => {
                     console.log(error);
@@ -179,18 +178,6 @@ const getPaginator = (apiCall, options = {}) => {
             }
         })
     };
-
-    const _queryApi = (queryParams = {}) => {
-        return apiCall(queryParams)
-            .then(
-                response => response.json(),
-                error => {
-                    console.log('Error encountered in the API call: ' + error.valueOf());
-                    return error;
-                }
-            );
-    };
-
 
     return {
         navigation: {
