@@ -1,0 +1,38 @@
+{
+    "name": "paging-dr-redux",
+    "version": "0.1.0",
+    "description": "A bare-bones paginator which works well with redux",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/XerxesDGreat/paging-dr-redux.git"
+    },
+    "keywords": [
+        "pagination",
+        "redux"
+    ],
+    "author": "Josh Wickham <josh@i-josh.com> (http://i-josh.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/XerxesDGreat/paging-dr-redux/issues"
+    },
+    "homepage": "https://github.com/XerxesDGreat/paging-dr-redux#readme",
+    "dependencies": {
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "query-string": "^6.1.0"
+    },
+    "devDependencies": {
+        "babel-preset-env": "^1.7.0",
+        "deep-copy": "^1.4.2",
+        "jest": "^23.1.0",
+        "mock-promises": "^0.8.2"
+    },
+    "peerDependencies": {
+        "redux-thunk": "^2.2.0",
+        "redux": "^4.0.0",
+        "react": "^16.3.2"
+    }
+}
