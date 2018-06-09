@@ -1,6 +1,6 @@
 {
     "name": "paging-dr-redux",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "A bare-bones paginator which works well with redux",
     "main": "./dist/index.js",
     "scripts": {
