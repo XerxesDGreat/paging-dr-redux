@@ -2,11 +2,11 @@
     "name": "paging-dr-redux",
     "version": "0.1.2",
     "description": "A bare-bones paginator which works well with redux",
-    "main": "./dist/index.js",
+    "main": "./lib/index.js",
     "scripts": {
         "test": "jest",
-        "build": "babel src --out-dir dist",
-        "prepublish": "npm run build"
+        "build": "babel src --out-dir lib",
+        "prepublishOnly": "npm run build"
     },
     "repository": {
         "type": "git",
