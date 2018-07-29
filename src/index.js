@@ -88,7 +88,7 @@ const getPaginator = (entityType, apiCall, options = {}) => {
     };
 
     const paginationReducer = (state = paginationInitialState, action) => {
-        if (action.meta.entityType !== entityType) {
+        if (action.meta && action.meta.entityType !== entityType) {
             return state;
         }
         switch (action.type) {
@@ -106,7 +106,7 @@ const getPaginator = (entityType, apiCall, options = {}) => {
     };
 
     const entitiesReducer = (state = entitiesInitialState, action) => {
-        if (action.meta.entityType !== entityType) {
+        if (action.meta && action.meta.entityType !== entityType) {
             return state;
         }
         switch (action.type) {
