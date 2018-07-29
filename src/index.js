@@ -50,7 +50,7 @@ export const RECEIVE_PAGE = '@@page-by-page/RECEIVE_PAGE';
 //////////////////////////////////
 // Paginator
 //////////////////////////////////
-const getPaginator = (apiCall, options = {}) => {
+const getPaginator = (entityType, apiCall, options = {}) => {
     const mergedOptions = Object.assign({}, defaultOptions, options);
 
     const selectors = ({
@@ -88,6 +88,9 @@ const getPaginator = (apiCall, options = {}) => {
     };
 
     const paginationReducer = (state = paginationInitialState, action) => {
+        if (action.meta.entityType !== entityType) {
+            return state;
+        }
         switch (action.type) {
             case RECEIVE_PAGE:
                 const nextState = {...state};
@@ -103,6 +106,9 @@ const getPaginator = (apiCall, options = {}) => {
     };
 
     const entitiesReducer = (state = entitiesInitialState, action) => {
+        if (action.meta.entityType !== entityType) {
+            return state;
+        }
         switch (action.type) {
             case RECEIVE_PAGE:
                 const nextState = {...state};
@@ -162,13 +168,14 @@ const getPaginator = (apiCall, options = {}) => {
             type: REQUEST_PAGE,
             payload: {},
             meta: {
-                page, filters: queryParams
+                page, entityType, filters: queryParams
             }
         }),
         receivePage: (page, queryParams, response) => ({
             type: RECEIVE_PAGE,
             payload: response[mergedOptions.resultsKey],
             meta: {
+                entityType,
                 count: response[mergedOptions.countKey],
                 next: response[mergedOptions.nextKey],
                 previous: response[mergedOptions.previousKey],

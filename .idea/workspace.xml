@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abc994c7-16b2-4217-8de7-96531fdba77a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.test.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,11 +18,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="179" column="6" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
+            <state relative-caret-position="1677">
+              <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/index.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="598">
+              <caret line="615" column="3" lean-forward="true" selection-start-line="615" selection-start-column="3" selection-end-line="615" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#129#0" expanded="true" />
+                <element signature="e#5787#8779#0" />
+                <element signature="e#8983#19521#0" />
+                <element signature="e#9048#9850#0" />
+                <element signature="e#16174#16711#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -28,6 +57,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find />
+      <find>newPreviou</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -51,9 +81,10 @@
         <option value="$PROJECT_DIR$/index.test.js" />
         <option value="$PROJECT_DIR$/.npmignore" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/index.test.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/index.js" />
       </list>
     </option>
   </component>
@@ -95,16 +126,6 @@
               <item name="paging-dr-redux" type="b2602c69:ProjectViewProjectNode" />
               <item name="paging-dr-redux" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="paging-dr-redux" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paging-dr-redux" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paging-dr-redux" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paging-dr-redux" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -145,7 +166,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Making queries">
+  <component name="RunManager" selected="Jest.Reducer operations">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -165,63 +186,68 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="Making queries" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="Reducer operations" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$" />
+      <working-dir value="$PROJECT_DIR$/src" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/index.test.js" />
+      <test-file value="$PROJECT_DIR$/src/index.test.js" />
       <test-names>
-        <test-name value="Making queries" />
+        <test-name value="Reducer operations" />
       </test-names>
     </configuration>
-    <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="Reducer operations.Entity" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$" />
+      <working-dir value="$PROJECT_DIR$/src" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/index.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/index.test.js" />
       <test-names>
-        <test-name value="Making queries" />
-        <test-name value="if there are no overrides, it should send the query params in the state when fetching a page" />
+        <test-name value="Reducer operations" />
+        <test-name value="Entity" />
       </test-names>
     </configuration>
-    <configuration name="Making queries.should mock the query api" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="Reducer operations.Entity.the state should be updated properly.when RECEIVE_PAGE action is received.using default paginator.updating existing items in state" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$" />
+      <working-dir value="$PROJECT_DIR$/src" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/index.test.js" />
+      <test-file value="$PROJECT_DIR$/src/index.test.js" />
       <test-names>
-        <test-name value="Making queries" />
-        <test-name value="should mock the query api" />
+        <test-name value="Reducer operations" />
+        <test-name value="Entity" />
+        <test-name value="the state should be updated properly" />
+        <test-name value="when RECEIVE_PAGE action is received" />
+        <test-name value="using default paginator" />
+        <test-name value="updating existing items in state" />
       </test-names>
     </configuration>
-    <configuration name="Making queries.should query for the next page when one exists" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="Reducer operations.Pagination" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$" />
+      <working-dir value="$PROJECT_DIR$/src" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/index.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/index.test.js" />
       <test-names>
-        <test-name value="Making queries" />
-        <test-name value="should query for the next page when one exists" />
+        <test-name value="Reducer operations" />
+        <test-name value="Pagination" />
       </test-names>
     </configuration>
-    <configuration name="Making queries.should reset back to page 1 if the query params are overridden (i.e. switching filters)" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$" />
+      <working-dir value="$PROJECT_DIR$/src" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/index.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/index.test.js" />
       <test-names>
-        <test-name value="Making queries" />
-        <test-name value="should reset back to page 1 if the query params are overridden (i.e. switching filters)" />
+        <test-name value="Reducer operations" />
+        <test-name value="Pagination" />
+        <test-name value="The state should be updated correctly upon RECEIVE_PAGE with matching entityType" />
       </test-names>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -247,19 +273,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Jest.Making queries.should mock the query api" />
-      <item itemvalue="Jest.Making queries.if there are no overrides, it should send the query params in the state when fetching a page" />
-      <item itemvalue="Jest.Making queries.should reset back to page 1 if the query params are overridden (i.e. switching filters)" />
-      <item itemvalue="Jest.Making queries.should query for the next page when one exists" />
-      <item itemvalue="Jest.Making queries" />
+      <item itemvalue="Jest.Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" />
+      <item itemvalue="Jest.Reducer operations.Pagination" />
+      <item itemvalue="Jest.Reducer operations.Entity" />
+      <item itemvalue="Jest.Reducer operations.Entity.the state should be updated properly.when RECEIVE_PAGE action is received.using default paginator.updating existing items in state" />
+      <item itemvalue="Jest.Reducer operations" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.Making queries" />
-        <item itemvalue="Jest.Making queries.should query for the next page when one exists" />
-        <item itemvalue="Jest.Making queries.should reset back to page 1 if the query params are overridden (i.e. switching filters)" />
-        <item itemvalue="Jest.Making queries.if there are no overrides, it should send the query params in the state when fetching a page" />
-        <item itemvalue="Jest.Making queries.should mock the query api" />
+        <item itemvalue="Jest.Reducer operations" />
+        <item itemvalue="Jest.Reducer operations.Entity.the state should be updated properly.when RECEIVE_PAGE action is received.using default paginator.updating existing items in state" />
+        <item itemvalue="Jest.Reducer operations.Entity" />
+        <item itemvalue="Jest.Reducer operations.Pagination" />
+        <item itemvalue="Jest.Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" />
       </list>
     </recent_temporary>
   </component>
@@ -282,44 +308,46 @@
       <workItem from="1528213570954" duration="21528000" />
       <workItem from="1528521476632" duration="3493000" />
       <workItem from="1528557580030" duration="718000" />
-      <workItem from="1528560869741" duration="1307000" />
+      <workItem from="1528560869741" duration="1792000" />
+      <workItem from="1528772990405" duration="9000" />
+      <workItem from="1532875611121" duration="9273000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Making_queries_should_mock_the_query_api - 2018.06.08 at 07h 31m 17s.xml">
-      <configuration name="Making queries.should mock the query api" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination_The_state_should_be_updated_correctly_upon_RECEIVE_PAGE_with_matching_entityType_Using_a_default_paginator - 2018.07.29 at 09h 57m 11s.xml">
+      <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType.Using a default paginator" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_if_there_are_no_overrides,_it_should_send_the_query_params_in_the_state_when_fetching_a_page - 2018.06.08 at 08h 14m 32s.xml">
-      <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination_The_state_should_be_updated_correctly_upon_RECEIVE_PAGE_with_matching_entityType - 2018.07.29 at 09h 57m 17s.xml">
+      <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_if_there_are_no_overrides,_it_should_send_the_query_params_in_the_state_when_fetching_a_page - 2018.06.08 at 08h 15m 07s.xml">
-      <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination_The_state_should_be_updated_correctly_upon_RECEIVE_PAGE_with_matching_entityType - 2018.07.29 at 09h 57m 58s.xml">
+      <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_if_there_are_no_overrides,_it_should_send_the_query_params_in_the_state_when_fetching_a_page - 2018.06.08 at 08h 15m 37s.xml">
-      <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination_The_state_should_be_updated_correctly_upon_RECEIVE_PAGE_with_matching_entityType - 2018.07.29 at 09h 59m 21s.xml">
+      <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_if_there_are_no_overrides,_it_should_send_the_query_params_in_the_state_when_fetching_a_page - 2018.06.08 at 08h 16m 10s.xml">
-      <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination_The_state_should_be_updated_correctly_upon_RECEIVE_PAGE_with_matching_entityType - 2018.07.29 at 09h 59m 34s.xml">
+      <configuration name="Reducer operations.Pagination.The state should be updated correctly upon RECEIVE_PAGE with matching entityType" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_if_there_are_no_overrides,_it_should_send_the_query_params_in_the_state_when_fetching_a_page - 2018.06.08 at 08h 43m 25s.xml">
-      <configuration name="Making queries.if there are no overrides, it should send the query params in the state when fetching a page" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Pagination - 2018.07.29 at 09h 59m 41s.xml">
+      <configuration name="Reducer operations.Pagination" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_should_reset_back_to_page_1_if_the_query_params_are_overridden_(i_e__switching_filters) - 2018.06.08 at 08h 51m 39s.xml">
-      <configuration name="Making queries.should reset back to page 1 if the query params are overridden (i.e. switching filters)" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Entity - 2018.07.29 at 09h 59m 52s.xml">
+      <configuration name="Reducer operations.Entity" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries_should_query_for_the_next_page_when_one_exists - 2018.06.08 at 08h 57m 01s.xml">
-      <configuration name="Making queries.should query for the next page when one exists" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Entity_the_state_should_be_updated_properly_when_RECEIVE_PAGE_action_is_received_using_default_paginator_updating_existing_items_in_state - 2018.07.29 at 10h 04m 15s.xml">
+      <configuration name="Reducer operations.Entity.the state should be updated properly.when RECEIVE_PAGE action is received.using default paginator.updating existing items in state" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries - 2018.06.08 at 08h 57m 18s.xml">
-      <configuration name="Making queries" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations_Entity_the_state_should_be_updated_properly_when_RECEIVE_PAGE_action_is_received_using_default_paginator_updating_existing_items_in_state - 2018.07.29 at 10h 07m 32s.xml">
+      <configuration name="Reducer operations.Entity.the state should be updated properly.when RECEIVE_PAGE action is received.using default paginator.updating existing items in state" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
-    <history-entry file="Making_queries - 2018.06.08 at 09h 00m 40s.xml">
-      <configuration name="Making queries" configurationId="JavaScriptTestRunnerJest" />
+    <history-entry file="Reducer_operations - 2018.07.29 at 10h 07m 46s.xml">
+      <configuration name="Reducer operations" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27046000" />
+    <option name="totallyTimeSpent" value="36813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="2045" height="1217" extended-state="0" />
@@ -330,12 +358,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3299909" />
-      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21330902" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.39106655" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3208751" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14827758" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15277085" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -358,31 +386,64 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="26" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/index.test.js</url>
+          <line>281</line>
+          <properties lambdaOrdinal="0" />
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="35" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3222">
+          <caret line="179" column="6" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="31" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3222">
+          <caret line="179" column="6" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1677">
+          <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11178">
-          <caret line="621" column="3" selection-start-line="621" selection-start-column="3" selection-end-line="621" selection-end-column="3" />
+        <state relative-caret-position="598">
+          <caret line="615" column="3" lean-forward="true" selection-start-line="615" selection-start-column="3" selection-end-line="615" selection-end-column="3" />
           <folding>
             <element signature="e#0#129#0" expanded="true" />
+            <element signature="e#5787#8779#0" />
+            <element signature="e#8983#19521#0" />
+            <element signature="e#9048#9850#0" />
+            <element signature="e#16174#16711#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.npmignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -390,126 +451,9 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="3060">
-            <caret line="170" lean-forward="true" selection-start-line="170" selection-end-line="170" />
+            <caret line="170" selection-start-line="170" selection-end-line="172" selection-end-column="101" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11178">
-          <caret line="621" column="3" selection-start-line="621" selection-start-column="3" selection-end-line="621" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.npmignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2196">
-          <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11178">
-          <caret line="621" column="3" lean-forward="true" selection-start-line="621" selection-start-column="3" selection-end-line="621" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="621" column="3" selection-start-line="621" selection-start-column="3" selection-end-line="621" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.npmignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="63" column="3" selection-start-line="63" selection-start-column="3" selection-end-line="63" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="509">
-            <caret line="170" lean-forward="true" selection-start-line="170" selection-end-line="170" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="179" column="6" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
         </state>
       </provider>
     </entry>

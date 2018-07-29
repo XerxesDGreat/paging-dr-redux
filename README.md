@@ -41,7 +41,7 @@ paginator.
 import getPaginator from 'paging-dr-redux';
 import {getTodos} from './api';
 
-export const todoPaginator = getPaginator(getTodos); 
+export const todoPaginator = getPaginator('todo', getTodos); 
 ```
 
 The paginator provides reducers, so we'll get those into our application
@@ -118,7 +118,7 @@ class App extends Component {
                 <h1>Total of {totalCount} todo items</h1>
                 <h2>There are {Object.keys(currentPageItems).length} in this list</h2>
                 <h2>Filter: {filtersAsQueryString}</h2>
-                <h2>We're on page {currentPageNum}</h2>
+                <h2>On page {currentPageNum}</h2>
 
                 <button onClick={this.onPreviousClick} disabled={!hasPrevious}>Previous</button>
                 <button onClick={this.onNextClick} disabled={!hasNext}>Next</button>
@@ -168,3 +168,23 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(App);
 
 ```
+## Revision History
+### 1.0.0
+Major version bump due to breaking changes in the API. This adds a specific type to the `getPaginator` function
+in order to differentiate between different entity types which may be paginated, preventing sullying of the
+entity space
+
+### 0.1.4
+Patch fix to repair an issue with nested promises
+
+### 0.1.3
+Use the `lib` dir, not the `dist` dir, as the target for compiled code
+
+### 0.1.2
+Updated README with instructions on how to use
+
+### 0.1.1
+Added transpile options, first upload to NPM
+
+### 0.1.0
+First working iteration

@@ -176,8 +176,10 @@ describe('Selector operation', () => {
 });
 
 describe('Action creator operations', () => {
+    const entityType = 'foo';
+
     it('should create the proper request page action object', () => {
-        const paginator = getPaginator(apiCallMock);
+        const paginator = getPaginator(entityType, apiCallMock);
         const page = 4;
         const queryParams = {};
         const expectedActionObject = {
@@ -185,7 +187,8 @@ describe('Action creator operations', () => {
             payload: {},
             meta: {
                 page: page,
-                filters: queryParams
+                filters: queryParams,
+                entityType: entityType
             }
         };
         expect(paginator.actionCreators.requestPage(page, queryParams)).toEqual(expectedActionObject);
@@ -196,7 +199,7 @@ describe('Action creator operations', () => {
     });
 
     it('should create the proper response page action object with default options', () => {
-        const paginator = getPaginator(apiCallMock);
+        const paginator = getPaginator(entityType, apiCallMock);
         const page = 4;
         const queryParams = {};
         const results = [{id: 'item1'}, {id: 'item2'}];
@@ -218,7 +221,8 @@ describe('Action creator operations', () => {
                 previous,
                 page,
                 filters: queryParams,
-                paginated: true
+                paginated: true,
+                entityType
             }
         };
         expect(paginator.actionCreators.receivePage(page, queryParams, response)).toEqual(expectedActionObject);
@@ -235,7 +239,7 @@ describe('Action creator operations', () => {
             nextKey: 'foo',
             previousKey: 'bar'
         };
-        const paginator = getPaginator(apiCallMock, options);
+        const paginator = getPaginator(entityType, apiCallMock, options);
         const page = 4;
         const queryParams = {};
         const results = [{id: 'item1'}, {id: 'item2'}];
@@ -252,6 +256,7 @@ describe('Action creator operations', () => {
             type: RECEIVE_PAGE,
             payload: results,
             meta: {
+                entityType,
                 count,
                 next,
                 previous,
@@ -264,279 +269,273 @@ describe('Action creator operations', () => {
     });
 });
 
-describe('Pagination reducer operations', () => {
-    it('should return the same state upon anything but RECEIVE_PAGE', () => {
-        const previousState = {foo: 'bar'}; // this value doesn't matter beyond comparison's sake
-        const paginator = getPaginator(apiCallMock);
+describe('Reducer operations', () => {
+    const entityType = 'asdf';
+    let paginator;
+    const previousState = {foo: 'bar'};
+    const count = 100;
+    const page = 4;
+    const filters = {};
 
-        expect(paginator.paginationReducer(previousState, {type: REQUEST_PAGE})).toEqual(previousState);
-        expect(paginator.paginationReducer(previousState, {type: 'ASASERKNALKASEJRLN'})).toEqual(previousState);
+    const urlTemplate = 'http://example.com?page=__page__';
+    const getNext = curPage => urlTemplate.replace('__page__', curPage + 1);
+    const getPrevious = curPage => curPage === 1 ? null : urlTemplate.replace('__page__', curPage - 1);
 
-        // and once with no state passed
-        expect(paginator.paginationReducer(undefined, {type: REQUEST_PAGE})).toEqual(paginationInitialState);
+    beforeEach(() => {
+        paginator = getPaginator(entityType, apiCallMock);
     });
 
-    it('should return the proper state upon RECEIVE_PAGE, starting at empty, with default options', () => {
-        const page = 4;
-        const queryParams = {};
-        const results = [{id: 'item1'}, {id: 'item2'}];
-        const count = 20;
-        const next = apiCallMock + '?page=2';
-        const previous = null;
-
-        const paginator = getPaginator(apiCallMock);
-
-        const actionObject = {
-            type: RECEIVE_PAGE,
-            payload: results,
-            meta: {
-                count,
-                next,
-                previous,
-                page,
-                filters: queryParams,
-                paginated: true
-            }
-        };
-
-        const expectedState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2']
-                }
-            },
-            page,
-            filters: queryParams,
-            next,
-            previous,
-            count,
-            paginated: true
-        };
-        expect(paginator.paginationReducer(undefined, actionObject)).toEqual(expectedState);
+    const getActionObject = (results, meta={}) => ({
+        type: RECEIVE_PAGE,
+        payload: results,
+        meta: {count, entityType, paginated: true, ...meta}
     });
 
-    it('should return the proper state upon RECEIVE_PAGE, starting at empty, with custom options', () => {
-        const page = 4;
-        const queryParams = {};
-        const results = [{foo: 'item1'}, {foo: 'item2'}];
-        const count = 20;
-        const next = apiCallMock + '?page=2';
-        const previous = null;
+    describe('Pagination', () => {
+        describe('The state should be unchanged', () => {
 
-        const paginatorOptions = {entityIdKey: 'foo'};
+            it('when anything but RECEIVE_PAGE is received, but the entity type matches', () => {
+                const action = {
+                    type: REQUEST_PAGE,
+                    meta: {entityType}
+                };
+                expect(paginator.paginationReducer(previousState, action)).toEqual(previousState);
 
-        const paginator = getPaginator(apiCallMock, paginatorOptions);
+                action.type = 'ASASERKNALKASEJRLN';
+                expect(paginator.paginationReducer(previousState, action)).toEqual(previousState);
 
-        const actionObject = {
-            type: RECEIVE_PAGE,
-            payload: results,
-            meta: {
-                count,
-                next,
-                previous,
-                page,
-                filters: queryParams,
-                paginated: true
-            }
-        };
+                // and once with no state passed
+                expect(paginator.paginationReducer(undefined, action)).toEqual(paginationInitialState);
+            });
 
-        const expectedState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2']
-                }
-            },
-            page,
-            filters: queryParams,
-            next,
-            previous,
-            count,
-            paginated: true
-        };
-        expect(paginator.paginationReducer(undefined, actionObject)).toEqual(expectedState);
+            it('when a non-matching entityType is encountered with a RECEIVE_PAGE action', () => {
+                const action = {
+                    type: RECEIVE_PAGE,
+                    meta: {
+                        entityType: "not what you're looking for"
+                    }
+                };
+                expect(paginator.paginationReducer(previousState, action)).toEqual(previousState);
+            });
+        });
+
+        describe("The state should be updated correctly upon RECEIVE_PAGE with matching entityType", () => {
+
+            const getState = (pages, page, filters, next, previous) => ({
+                pages, page, filters, next, previous, count, entityType, paginated: true
+            });
+
+            describe("Using a default paginator", () => {
+                it('starting at empty', () => {
+                    const results = [{id: 'item1'}, {id: 'item2'}];
+                    const actionObject = getActionObject(results, {
+                        next: getNext(page),
+                        previous: getPrevious(page),
+                        page,
+                        filters
+                    });
+
+                    const pages = {
+                        '': {
+                            '4': ['item1', 'item2']
+                        }
+                    };
+                    const expectedState = getState(pages, page, filters, getNext(page), getPrevious(page));
+                    expect(paginator.paginationReducer(undefined, actionObject)).toEqual(expectedState);
+                });
+
+                describe("Starting with an existing state", () => {
+                    let startingPages;
+                    let oldState;
+
+                    beforeEach(() => {
+                        startingPages = {
+                            '': {
+                                '4': ['item1', 'item2']
+                            }
+                        };
+                        oldState = getState(startingPages, page, filters, getNext(page), getPrevious(page));
+                    });
+
+                    it('Keeping filters unchanged', () => {
+                        const results = [{id: 'item3'}, {id: 'item4'}];
+                        const actionObject = getActionObject(results, {
+                            next: getNext(page + 1),
+                            previous: getPrevious(page + 1),
+                            page: page + 1,
+                            filters
+                        });
+
+                        const expectedPages = {
+                            '': {
+                                '4': ['item1', 'item2'],
+                                '5': ['item3', 'item4']
+                            }
+                        };
+                        const expectedState = getState(expectedPages, page + 1, filters, getNext(page + 1),
+                            getPrevious(page + 1));
+
+                        expect(paginator.paginationReducer(oldState, actionObject)).toEqual(expectedState);
+                    });
+
+                    it('Changing filters', () => {
+                        const results = [{id: 'item1'}, {id: 'item4'}];
+                        const newFilters = {'category_id': 1};
+                        const actionObject = getActionObject(results, {
+                            next: getNext(page + 1),
+                            previous: getPrevious(page + 1),
+                            page: page + 1,
+                            filters: newFilters
+                        });
+
+                        const expectedPages = {
+                            '': {
+                                '4': ['item1', 'item2']
+                            },
+                            'category_id=1': {
+                                '5': ['item1', 'item4']
+                            }
+                        };
+                        const expectedState = getState(expectedPages, page + 1, newFilters, getNext(page + 1),
+                            getPrevious(page + 1));
+
+                        expect(paginator.paginationReducer(oldState, actionObject)).toEqual(expectedState);
+                    });
+                });
+            });
+
+            describe("Using a custom paginator", () => {
+                it('starting at empty', () => {
+                    const paginator = getPaginator(entityType, apiCallMock, {entityIdKey: 'foo'});
+
+                    const results = [{foo: 'item1'}, {foo: 'item2'}];
+                    const actionObject = getActionObject(results, {
+                        next: getNext(page),
+                        previous: getPrevious(page),
+                        page,
+                        filters
+                    });
+
+                    const expectedPages = {
+                        '': {
+                            '4': ['item1', 'item2']
+                        }
+                    };
+                    const expectedState = getState(expectedPages, page, filters, getNext(page), getPrevious(page));
+                    expect(paginator.paginationReducer(undefined, actionObject)).toEqual(expectedState);
+                });
+            });
+        });
     });
 
-    it('should return the proper state upon RECEIVE_PAGE, starting with an existing state', () => {
-        const oldPage = 4;
-        const newPage = 5;
-        const queryParams = {};
-        const oldNext = apiCallMock + '?page=5';
-        const newNext = apiCallMock + '?page=6';
-        const oldPrevious = apiCallMock + '?page=3';
-        const newPrevious = apiCallMock + '?page=4';
-        const count = 140;
-        const results = [{id: 'item3'}, {id: 'item4'}];
+    describe('Entity', () => {
+        describe('should return the same state', () => {
+            it('when any action but RECEIVE_PAGE is received', () => {
+                const action = {
+                    type: REQUEST_PAGE,
+                    meta: {entityType}
+                };
+                expect(paginator.entitiesReducer(previousState, action)).toEqual(previousState);
 
-        const oldState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2']
-                }
-            },
-            page: oldPage,
-            filters: queryParams,
-            next: oldNext,
-            previous: oldPrevious,
-            count,
-            paginated: true
-        };
+                action.type = 'lnaienaliesrjilnve';
+                expect(paginator.entitiesReducer(previousState, action)).toEqual(previousState);
 
-        const actionObject = {
-            type: RECEIVE_PAGE,
-            payload: results,
-            meta: {
-                count,
-                next: newNext,
-                previous: newPrevious,
-                page: newPage,
-                filters: queryParams,
-                paginated: true
-            }
-        };
+                // and once with no state passed
+                expect(paginator.entitiesReducer(undefined, action)).toEqual(entitiesInitialState);
+            });
 
-        const expectedNewState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2'],
-                    '5': ['item3', 'item4']
-                }
-            },
-            page: newPage,
-            filters: queryParams,
-            next: newNext,
-            previous: newPrevious,
-            count,
-            paginated: true
-        };
+            it('when a non-matching entityType is encountered with a RECEIVE_PAGE action', () => {
+                const action = {
+                    type: RECEIVE_PAGE,
+                    meta: {
+                        entityType: "not what you're looking for"
+                    }
+                };
 
-        const paginator = getPaginator(apiCallMock);
-        expect(paginator.paginationReducer(oldState, actionObject)).toEqual(expectedNewState);
-    });
+                expect(paginator.entitiesReducer(previousState, action)).toEqual(previousState);
+            })
+        });
 
-    it('should return the proper state upon RECEIVE_PAGE, starting with an existing state and changing filters', () => {
-        const oldPage = 4;
-        const newPage = 5;
-        const oldQueryParams = {};
-        const newQueryParams = {category_id: 1};
-        const oldNext = apiCallMock + '?page=5';
-        const newNext = apiCallMock + '?page=6';
-        const oldPrevious = apiCallMock + '?page=3';
-        const newPrevious = apiCallMock + '?page=4';
-        const count = 140;
-        const results = [{id: 'item1'}, {id: 'item4'}];
+        describe('the state should be updated properly', () => {
+            describe('when RECEIVE_PAGE action is received', () => {
+                const items = [
+                    {id: 'item0', foo: 'bar0'},
+                    {id: 'item1', foo: 'bar1'},
+                    {id: 'item2', foo: 'bar2'},
+                    {id: 'item3', foo: 'bar3'},
+                ];
 
-        const oldState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2']
-                }
-            },
-            page: oldPage,
-            filters: oldQueryParams,
-            next: oldNext,
-            previous: oldPrevious,
-            count,
-            paginated: true
-        };
+                describe('using default paginator', () => {
+                    it('beginning from empty state', () => {
+                        const actionObject = getActionObject(items.slice(0, 2));
 
-        const actionObject = {
-            type: RECEIVE_PAGE,
-            payload: results,
-            meta: {
-                count,
-                next: newNext,
-                previous: newPrevious,
-                page: newPage,
-                filters: newQueryParams,
-                paginated: true
-            }
-        };
+                        const expectedState = {
+                            item0: items[0],
+                            item1: items[1]
+                        };
 
-        const expectedNewState = {
-            pages: {
-                '': {
-                    '4': ['item1', 'item2']
-                },
-                'category_id=1': {
-                    '5': ['item1', 'item4']
-                }
-            },
-            page: newPage,
-            filters: newQueryParams,
-            next: newNext,
-            previous: newPrevious,
-            count,
-            paginated: true
-        };
+                        expect(paginator.entitiesReducer(undefined, actionObject)).toEqual(expectedState);
+                    });
 
-        const paginator = getPaginator(apiCallMock);
-        expect(paginator.paginationReducer(oldState, actionObject)).toEqual(expectedNewState);
-    });
-});
+                    it('adding to existing state', () => {
+                        const actionObject = getActionObject(items.slice(2,4));
 
-describe('Entity reducer operations', () => {
-    it('should return the same state upon anything but RECEIVE_PAGE', () => {
-        const previousState = {foo: 'bar'};
-        const paginator = getPaginator(apiCallMock);
+                        const existingState = {
+                            item0: items[0],
+                            item1: items[1]
+                        };
 
-        expect(paginator.entitiesReducer(previousState, {type: REQUEST_PAGE})).toEqual(previousState);
-        expect(paginator.entitiesReducer(previousState, {type: 'lnaienaliesrjilnve'})).toEqual(previousState);
+                        const expectedState = {
+                            ...existingState,
+                            item2: items[2],
+                            item3: items[3]
+                        };
 
-        // and once with no state passed
-        expect(paginator.entitiesReducer(undefined, {type: REQUEST_PAGE})).toEqual(entitiesInitialState);
-    });
+                        expect(paginator.entitiesReducer(existingState, actionObject)).toEqual(expectedState);
+                    });
 
-    it('should return the proper state upon RECEIVE_PAGE', () => {
-        const actionObject = {
-            type: RECEIVE_PAGE,
-            payload: [{id: 'item1'}, {id: 'item2'}],
-            meta: {
-                count: 20,
-                next: apiCallMock + '?page=2',
-                previous: null,
-                page: 1,
-                filters: {},
-                paginated: true
-            }
-        };
+                    it('updating existing items in state', () => {
+                        const response = [{id: items[3].id, foo: 'baz'}];
+                        const actionObject = getActionObject(response);
 
-        const expectedState = {
-            item1: {
-                id: 'item1'
-            },
-            item2: {
-                id: 'item2'
-            }
-        };
+                        const existingState = {
+                            item3: items[3]
+                        };
 
-        const paginatorWithDefaults = getPaginator(apiCallMock);
+                        const expectedState = {
+                            item3: response[0]
+                        };
 
-        // starting from scratch
-        let stateFromPaginator = paginatorWithDefaults.entitiesReducer(undefined, actionObject);
-        expect(stateFromPaginator).toEqual(expectedState);
+                        expect(paginator.entitiesReducer(existingState, actionObject)).toEqual(expectedState);
+                    });
+                });
 
-        // adding state
-        actionObject.payload = [{id: 'item3'}, {id: 'item4'}];
-        expectedState['item3'] = actionObject.payload[0];
-        expectedState['item4'] = actionObject.payload[1];
-        stateFromPaginator = paginatorWithDefaults.entitiesReducer(stateFromPaginator, actionObject);
-        expect(stateFromPaginator).toEqual(expectedState);
+                describe('using a custom paginator', () => {
+                    beforeEach(() => {
+                        paginator = getPaginator(entityType, apiCallMock, {entityIdKey: 'foo'});
+                    });
 
-        // updating
-        actionObject.payload = [{id: 'item3', foo: 'bar'}];
-        expectedState['item3'] = actionObject.payload[0];
-        stateFromPaginator = paginatorWithDefaults.entitiesReducer(stateFromPaginator, actionObject);
-        expect(stateFromPaginator).toEqual(expectedState);
+                    it('starting from empty', () => {
+                        const actionObject = getActionObject(items.slice(0, 2));
 
-        // non-default id property
-        const paginatorWithCustomOptions = getPaginator(apiCallMock, {entityIdKey: 'foo'});
-        expectedState['bar'] = actionObject.payload[0];
-        stateFromPaginator = paginatorWithCustomOptions.entitiesReducer(stateFromPaginator, actionObject);
-        expect(stateFromPaginator).toEqual(expectedState);
+                        const expectedState = {
+                            bar0: items[0],
+                            bar1: items[1]
+                        };
+
+                        expect(paginator.entitiesReducer(undefined, actionObject)).toEqual(expectedState);
+                    });
+                });
+            });
+        });
     });
 });
 
 describe('Making queries', () => {
+    const entityType = 'foo';
+    let paginator;
+    let state;
+
     const getBaseState = () => {
         return deepCopy({
             entities: entitiesInitialState,
@@ -549,6 +548,8 @@ describe('Making queries', () => {
     beforeEach(() => {
         Promise = mockPromises.getMockPromise(Promise);
         apiCallMock.mockReturnValue(new Promise({}));
+        paginator = getPaginator(entityType, apiCallMock);
+        state = getBaseState();
     });
 
     afterEach(() => {
@@ -556,20 +557,16 @@ describe('Making queries', () => {
     });
 
     it('query-making functions should be properly curried', () => {
-        const paginator = getPaginator(apiCallMock);
         expect(paginator.navigation.fetchPage(getBaseState())).toEqual(expect.any(Function));
         expect(paginator.navigation.fetchNextPage(getBaseState())).toEqual(expect.any(Function));
         expect(paginator.navigation.fetchPreviousPage(getBaseState())).toEqual(expect.any(Function));
     });
 
     it('should raise an error when there is no previous page', () => {
-        const paginator = getPaginator(apiCallMock);
         expect(() => paginator.fetchPreviousPage(getBaseState())()).toThrow();
     });
 
     it('should query for the previous page when one exists', () => {
-        const paginator = getPaginator(apiCallMock);
-        const state = getBaseState();
         state.pagination.previous = 'not null';
         state.pagination.page = 2;
         paginator.navigation.fetchPreviousPage(state)()(dispatch);
@@ -578,41 +575,38 @@ describe('Making queries', () => {
     });
 
     it('should raise an error when there is no next page', () => {
-        const paginator = getPaginator(apiCallMock);
         expect(() => paginator.fetchNextPage(getBaseState())()).toThrow();
     });
 
     it('should query for the next page when one exists', () => {
-        const paginator = getPaginator(apiCallMock);
-        const state = getBaseState();
         state.pagination.next = 'not null';
         paginator.navigation.fetchNextPage(state)()(dispatch);
         expect(apiCallMock).toHaveBeenCalled();
         expect(apiCallMock).lastCalledWith({page: 2});
     });
 
-    it('if there are no overrides, it should send the query params in the state when fetching a page', () => {
-        const defaultPaginator = getPaginator(apiCallMock);
-        const state = getBaseState();
-        defaultPaginator.navigation.fetchPage(state)()(dispatch);
-        expect(apiCallMock).toBeCalled();
+    describe('if there are no overrides, it should send the query params in the state when fetching a page', () => {
+        it('using the default paginator', () => {
+            paginator.navigation.fetchPage(state)()(dispatch);
+            expect(apiCallMock).toBeCalled();
 
-        // fetchPage adds the page number to the filter params
-        const queryParamsWithDefaultPage = Object.assign({}, state.pagination.filters, {page: 1});
-        expect(apiCallMock).lastCalledWith(queryParamsWithDefaultPage);
+            // fetchPage adds the page number to the filter params
+            const queryParamsWithDefaultPage = Object.assign({}, state.pagination.filters, {page: 1});
+            expect(apiCallMock).lastCalledWith(queryParamsWithDefaultPage);
+        });
 
-        // we can also override the page property if the api expects something different
-        const customOptions = {pageKey: 'foo'};
-        const customPaginator = getPaginator(apiCallMock, customOptions);
-        customPaginator.navigation.fetchPage(state)()(dispatch);
-        expect(apiCallMock).toBeCalled();
-        const queryParamsWithCustomPage = Object.assign({}, state.pagination.filters, {foo: 1});
-        expect(apiCallMock).lastCalledWith(queryParamsWithCustomPage);
+        it('using a custom paginator', () => {
+            // we can also override the page property if the api expects something different
+            const customOptions = {pageKey: 'foo'};
+            const customPaginator = getPaginator(entityType, apiCallMock, customOptions);
+            customPaginator.navigation.fetchPage(state)()(dispatch);
+            expect(apiCallMock).toBeCalled();
+            const queryParamsWithCustomPage = Object.assign({}, state.pagination.filters, {foo: 1});
+            expect(apiCallMock).lastCalledWith(queryParamsWithCustomPage);
+        });
     });
 
     it('should reset back to page 1 if the query params are overridden (i.e. switching filters)', () => {
-        const paginator = getPaginator(apiCallMock);
-        const state = getBaseState();
         state.pagination.page = 4;
         const queryParams = {category_id: 15};
         paginator.navigation.fetchPage(state)(4, queryParams)(dispatch);
